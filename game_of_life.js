@@ -7,9 +7,9 @@
 // 2 => Unpopulated
 
 function displayInConsole(mat, width, height) {
-  for(var i = 0; i < width; i++) {
+  for (var i = 0; i < width; i++) {
     let line = "";
-    for(var j = 0; j < width; j++) {
+    for (var j = 0; j < width; j++) {
       line += mat[i][j];
     }
     console.log(line);
@@ -19,15 +19,23 @@ function displayInConsole(mat, width, height) {
 function neighbours(centerX, centerY, xRange, yRange) {
   var startX = centerX - 1;
   var startY = centerY - 1;
-  var endX   = centerX + 1;
-  var endY   = centerY + 1;
+  var endX = centerX + 1;
+  var endY = centerY + 1;
   var neighbours = [];
-  if (centerX == 0)          { startX = centerX; }
-  if (centerY == 0)          { startY = centerY; }
-  if (centerX == xRange - 1)  { endX   = centerX; }
-  if (centerY == yRange - 1) { endY   = centerY; }
-  for(var i = startX; i <= endX ; i++) {
-    for(var j = startY; j <= endY; j++) {
+  if (centerX == 0) {
+    startX = centerX;
+  }
+  if (centerY == 0) {
+    startY = centerY;
+  }
+  if (centerX == xRange - 1) {
+    endX = centerX;
+  }
+  if (centerY == yRange - 1) {
+    endY = centerY;
+  }
+  for (var i = startX; i <= endX; i++) {
+    for (var j = startY; j <= endY; j++) {
       if (!(i == centerX && j == centerY)) {
         neighbours.push([i, j]);
       }
@@ -35,18 +43,21 @@ function neighbours(centerX, centerY, xRange, yRange) {
   }
   return neighbours;
 }
+
 function toNextGeneration(currentGeneration, xRange, yRange) {
   let nextGeneration = [];
 
-  for(var i = 0; i < xRange; i++) {
+  for (var i = 0; i < xRange; i++) {
     nextGeneration.push([]);
-    for(var j = 0; j < yRange; j++) {
+    for (var j = 0; j < yRange; j++) {
       let neighbourIdx = neighbours(i, j, xRange, yRange);
-      let liveCount    = 0;
+      let liveCount = 0;
 
-      for(var k = 0; k < neighbourIdx.length; k++) {
+      for (var k = 0; k < neighbourIdx.length; k++) {
         let [nX, nY] = neighbourIdx[k];
-        if (currentGeneration[nX][nY]) { liveCount += 1; }
+        if (currentGeneration[nX][nY]) {
+          liveCount += 1;
+        }
       }
       nextGeneration[i][j] = currentGeneration[i][j];
 
@@ -70,6 +81,7 @@ function toNextGeneration(currentGeneration, xRange, yRange) {
 }
 
 const ALIVE_CLASS = 'alive';
+
 function convertToTable(table, game) {
   for (var i = 0, row; row = table.rows[i]; i++) {
     for (var j = 0, col; col = row.cells[j]; j++) {
@@ -83,27 +95,27 @@ function convertToTable(table, game) {
 }
 
 let game = [
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0 ,1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-  [0, 0 ,0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
 let height = game.length;
-let width  = game[0].length;
-let table  = document.getElementById('game');
+let width = game[0].length;
+let table = document.getElementById('game');
 let tickTime = 300; //ms
 function tick() {
   convertToTable(table, game);
